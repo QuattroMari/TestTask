@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
+
 from services.db import engine, Base
+from routers import sales
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -9,3 +11,5 @@ async def lifespan(app: FastAPI):
     
 
 app = FastAPI(title="Аггрегатор продаж", lifespan=lifespan)
+
+app.include_router(sales.router)
